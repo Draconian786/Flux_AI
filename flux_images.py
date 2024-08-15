@@ -8,6 +8,7 @@ import toml
 
 def main():
     # load_dotenv('flux_images.env')
+    FAL_KEY = st.secrets['FAL_KEY']
 
     SUPABASE_URL = st.secrets['SUPABASE_URL']
     SUPABASE_KEY = st.secrets['SUPABASE_KEY']
