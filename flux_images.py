@@ -1,15 +1,16 @@
 import streamlit as st
 import fal_client
 import pandas as pd
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 from supabase import create_client, Client
+import toml
 
 def main():
-    load_dotenv('flux_images.env')
+    # load_dotenv('flux_images.env')
 
-    SUPABASE_URL = os.getenv('SUPABASE_URL')
-    SUPABASE_KEY = os.getenv('SUPABASE_KEY')
+    SUPABASE_URL = st.secrets['SUPABASE_URL']
+    SUPABASE_KEY = st.secrets['SUPABASE_KEY']
     supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
     # Streamlit app setup
