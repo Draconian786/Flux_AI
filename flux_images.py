@@ -34,8 +34,8 @@ def main():
             with st.spinner("Generating image..."):
                 # Submit the prompt to the fal_client
                 handler = fal_client.submit(
-                    # "fal-ai/flux-pro",
-                    "fal-ai/flux/dev",
+                    "fal-ai/flux-pro",
+                    # "fal-ai/flux/dev",
                     arguments={
                         "prompt": user_prompt,
                         "image_size": image_size,
