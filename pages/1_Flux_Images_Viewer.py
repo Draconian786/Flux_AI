@@ -17,7 +17,7 @@ def main():
     # Streamlit app setup
     st.title("Flux AI Images Viewer")
 
-    response = supabase.table("Flux_Image_Repository").select("*").eq('Flux_Image_Convocation_Flag', 'Y').execute()
+    response = supabase.table("Flux_Image_Repository").select("*").eq('Flux_Image_Convocation_Flag', 'Y').order("Flux_Image_ID", desc=True).execute()
     data = response.data
 
     # Create two tabs
