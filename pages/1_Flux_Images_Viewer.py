@@ -34,7 +34,7 @@ def main():
                 st.write("##### **Flux_Image_Style:**", record["Flux_Image_Style"])
                 # st.write("Flux_Image_Prompt:", record["Flux_Image_Prompt"])
                 st.write("##### **Flux_Image_Url:**", record["Flux_Image_Url"])
-                st.image(record["Flux_Image_Url"], caption=f'{record["Flux_Image_Style"]} style: {record["Flux_Image_Url"]}', use_column_width=True)
+                st.image(record["Flux_Image_Url"], caption=f'{record["Flux_Image_Style"]} style: {record["Flux_Image_Url"]}', use_container_width=True)
                 # st.write("Flux_Image_Created_At:", record["Flux_Image_Created_At"])
                 st.write("---")  # Separator for readability
 
