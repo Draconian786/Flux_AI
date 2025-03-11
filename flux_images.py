@@ -51,7 +51,7 @@ def main():
                 image_url = result["images"][0]["url"]
 
                 # Display the result
-                st.image(image_url, caption=image_url, use_column_width=True)
+                st.image(image_url, caption=image_url, use_container_width=True)
 
     with tab2:
         st.write("Upload a CSV file containing prompts:")
@@ -107,7 +107,7 @@ def main():
                                 image_url = result["images"][0]["url"]
 
                                 # Display the result
-                                st.image(image_url, caption=f"{style_name} style: {image_url}", use_column_width=True)
+                                st.image(image_url, caption=f"{style_name} style: {image_url}", use_container_width=True)
 
                                 # st.write(result)
 
