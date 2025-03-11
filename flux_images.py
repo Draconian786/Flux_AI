@@ -30,28 +30,14 @@ def main():
         )
 
         if st.button("Generate Image"):
-            with st.spinner("Generating image..."):
-                # Submit the prompt to the fal_client
-                handler = fal_client.submit(
-                    "fal-ai/flux-pro",
-                    # "fal-ai/flux/dev",
-                    arguments={
-                        "prompt": user_prompt,
-                        "image_size": image_size,
-                        "enable_safety_checker": False,
-                    },
-                )
-
-                # Get the result
-                result = handler.get()
-
-                # st.write(result)
-
-                # Extract the image URL from the result
-                image_url = result["images"][0]["url"]
-
-                # Display the result
-                st.image(image_url, caption=image_url, use_container_width=True)
+            try:
+                with st.spinner("Generating image..."):
+                    handler = fal_client.submit("fal-ai/flux-pro", arguments={"prompt": user_prompt, "image_size": image_size, "enable_safety_checker": False})
+                    result = handler.get()
+                    image_url = result["images"][0]["url"]
+                    st.image(image_url, caption=image_url, use_container_width=True)
+            except Exception as e:
+                st.error(f"Error generating image: {str(e)}")
 
     with tab2:
         st.write("Upload a CSV file containing prompts:")
@@ -89,37 +75,23 @@ def main():
 
                             st.write(f"##### **{style_name} style**: \n\n {user_prompt}")
 
-                            with st.spinner("Generating image..."):
-                                # Submit the prompt to the fal_client
-                                handler = fal_client.submit(
-                                    "fal-ai/flux-pro",
-                                    arguments={
-                                        "prompt": styled_prompt,
-                                        "image_size": image_size_batch,
-                                        "enable_safety_checker": False,
-                                    },
-                                )
+                            try:
+                                with st.spinner("Generating image..."):
+                                    handler = fal_client.submit("fal-ai/flux-pro", arguments={"prompt": styled_prompt, "image_size": image_size_batch, "enable_safety_checker": False})
+                                    result = handler.get()
+                                    image_url = result["images"][0]["url"]
+                                    st.image(image_url, caption=f"{style_name} style: {image_url}", use_container_width=True)
 
-                                # Get the result
-                                result = handler.get()
-
-                                # Extract the image URL from the result
-                                image_url = result["images"][0]["url"]
-
-                                # Display the result
-                                st.image(image_url, caption=f"{style_name} style: {image_url}", use_container_width=True)
-
-                                # st.write(result)
-
-                                flux_image_repository_data_to_insert = {
-                                    "Flux_Image_Style": style_name,
-                                    "Flux_Image_User_Input": user_prompt,
-                                    "Flux_Image_Prompt": styled_prompt,
-                                    "Flux_Image_Url": image_url,
-                                    "Flux_Image_Convocation_Flag": "Y",
-                                }
-
-                                fl_response = supabase.table("Flux_Image_Repository").insert(flux_image_repository_data_to_insert).execute()
+                                    flux_image_repository_data_to_insert = {
+                                        "Flux_Image_Style": style_name,
+                                        "Flux_Image_User_Input": user_prompt,
+                                        "Flux_Image_Prompt": styled_prompt,
+                                        "Flux_Image_Url": image_url,
+                                        "Flux_Image_Convocation_Flag": "Y",
+                                    }
+                                    supabase.table("Flux_Image_Repository").insert(flux_image_repository_data_to_insert).execute()
+                            except Exception as e:
+                                st.error(f"Error processing {style_name} style: {str(e)}")
 
             else:
                 st.error("CSV file must contain a 'prompt' column.")
