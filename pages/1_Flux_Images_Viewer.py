@@ -57,7 +57,7 @@ def main():
                 for j, col in enumerate(cols):
                     if i + j < len(records):
                         with col:
-                            st.image(records[i + j]["Flux_Image_Url"], caption=f'{records[i + j]["Flux_Image_Style"]} style', use_column_width=True)
+                            st.image(records[i + j]["Flux_Image_Url"], caption=f'{records[i + j]["Flux_Image_Style"]} style', use_container_width=True)
 
             st.write("---")  # Separator for readability
 
